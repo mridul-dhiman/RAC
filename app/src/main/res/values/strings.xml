@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">RAC</string>
+    <string name="str_applogo">appLogo</string>
+    <string name="str_login_screen_message">Hello There,\nwelcome back</string>
+    <string name="str_sign_up_screen_message">Welcome</string>
+    <string name="str_sign_in_message">Sign In to continue</string>
+    <string name="str_sign_up_message">Sign up to start</string>
+    <string name="str_username">Email</string>
+    <string name="str_name">Name</string>
+    <string name="str_password">Password</string>
+    <string name="str_sign_in">Sign in</string>
+    <string name="str_sign_up">Sign up</string>
+    <string name="str_new_user_sign_up">New user? Sign up</string>
+</resources>
