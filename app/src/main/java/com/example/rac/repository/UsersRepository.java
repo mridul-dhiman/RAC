@@ -8,8 +8,6 @@ import androidx.lifecycle.LiveData;
 import com.example.rac.models.Users;
 import com.example.rac.presistence.MainDatabase;
 
-import java.util.List;
-
 public class UsersRepository {
     private static final String TAG = "UsersRepository";
 
@@ -41,6 +39,10 @@ public class UsersRepository {
 
     public LiveData<String> loginUser(Users users) {
         return mainDatabase.getDAO().loginStatus(users.getEmail(), users.getPassword());
+    }
+
+    public LiveData<String> getUserName(String email) {
+        return mainDatabase.getDAO().getUserName(email);
     }
 
 }

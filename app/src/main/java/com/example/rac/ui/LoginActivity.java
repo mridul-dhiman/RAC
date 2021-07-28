@@ -1,17 +1,20 @@
 package com.example.rac.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.rac.MainActivity;
 import com.example.rac.R;
 import com.example.rac.models.Users;
 import com.example.rac.viewModels.UsersViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+
+import static com.example.rac.utils.Constants.SHARED_PREFS;
+import static com.example.rac.utils.Constants.SHARED_PREFS_USER_EMAIL;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -52,6 +55,13 @@ public class LoginActivity extends AppCompatActivity {
                 usersViewModel.loginUser(new Users(username, password)).observe(this, s -> {
                     //Log.d("LoginActivity", "onCreate: " + s.size());
                     if (s != null && s.equals(username)) {
+
+                        //Save user login
+                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(SHARED_PREFS_USER_EMAIL, s);
+                        editor.apply();
+
                         startActivity(new Intent(LoginActivity.this, MainActivity.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                     } else {

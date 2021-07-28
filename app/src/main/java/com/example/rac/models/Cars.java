@@ -6,6 +6,8 @@ public class Cars {
     private final String carSeats;
     private final String carReleaseYear;
     private final String carFuelType;
+    private boolean available = false;
+    private boolean selected = false;
 
     public Cars(String carName, String carSeats, String carReleaseYear, String carFuelType) {
         this.carName = carName;
@@ -28,5 +30,21 @@ public class Cars {
 
     public String getCarFuelType() {
         return carFuelType;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

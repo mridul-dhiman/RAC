@@ -8,8 +8,6 @@ import androidx.room.Query;
 
 import com.example.rac.models.Users;
 
-import java.util.List;
-
 @Dao
 public interface DAO {
 
@@ -18,4 +16,7 @@ public interface DAO {
 
     @Query("SELECT Email FROM Users WHERE Email = :email AND Password = :password LIMIT 1")
     LiveData<String> loginStatus(String email, String password);
+
+    @Query("SELECT Name FROM Users WHERE Email = :email LIMIT 1")
+    LiveData<String> getUserName(String email);
 }

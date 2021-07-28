@@ -17,15 +17,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private final List<Cars> carsList;
 
-    public RecyclerViewAdapter(List<Cars> carsList) {
+    private final RecyclerViewClickListener viewClickListener;
+
+    public RecyclerViewAdapter(List<Cars> carsList, RecyclerViewClickListener viewClickListener) {
         this.carsList = carsList;
+        this.viewClickListener = viewClickListener;
     }
 
     @NonNull
     @Override
     public CarsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cars_list_layout, parent, false);
-        return new CarsViewHolder(view);
+        return new CarsViewHolder(view, viewClickListener);
     }
 
     @Override
@@ -38,16 +41,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return carsList.size();
     }
 
-    protected static class CarsViewHolder extends RecyclerView.ViewHolder {
+    protected static class CarsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView carName, carSeats, carReleaseYear, carFuelType;
+        private final RecyclerViewClickListener viewClickListener;
 
-        public CarsViewHolder(@NonNull View itemView) {
+        public CarsViewHolder(@NonNull View itemView, RecyclerViewClickListener clickListener) {
             super(itemView);
 
             carName = itemView.findViewById(R.id.tv_car_name);
             carSeats = itemView.findViewById(R.id.tv_car_seats);
             carReleaseYear = itemView.findViewById(R.id.tv_car_release_year);
             carFuelType = itemView.findViewById(R.id.tv_car_fuel_type);
+
+            viewClickListener = clickListener;
+            itemView.setOnClickListener(this);
 
         }
 
@@ -56,6 +63,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             carSeats.setText(car.getCarSeats());
             carReleaseYear.setText(car.getCarReleaseYear());
             carFuelType.setText(car.getCarFuelType());
+        }
+
+        @Override
+        public void onClick(View v) {
+            viewClickListener.OnItemClick(getAdapterPosition());
         }
     }
 }

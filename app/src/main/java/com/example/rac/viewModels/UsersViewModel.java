@@ -8,8 +8,6 @@ import androidx.lifecycle.ViewModel;
 import com.example.rac.models.Users;
 import com.example.rac.repository.UsersRepository;
 
-import java.util.List;
-
 public class UsersViewModel extends ViewModel {
     private final UsersRepository repository;
 
@@ -23,5 +21,9 @@ public class UsersViewModel extends ViewModel {
 
     public LiveData<String> loginUser(Users users) {
         return repository.loginUser(users);
+    }
+
+    public LiveData<String> getUserName(String email) {
+        return repository.getUserName(email);
     }
 }
