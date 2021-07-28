@@ -14,7 +14,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
-    private static final String TAG = "LoginActivity";
 
     private UsersViewModel usersViewModel;
 
@@ -27,35 +26,36 @@ public class LoginActivity extends AppCompatActivity {
 
         usersViewModel = new UsersViewModel(this);
 
-        TextInputLayout tilUsername = findViewById(R.id.oTF_username);
+        TextInputLayout tilEmail = findViewById(R.id.oTF_email);
         TextInputLayout tilPassword = findViewById(R.id.oTF_password);
 
         //Sign-in button click event
         findViewById(R.id.bu_sign_in).setOnClickListener(v -> {
 
-            String username = tilUsername.getEditText().getText().toString().trim();
+            String username = tilEmail.getEditText().getText().toString().trim();
             String password = tilPassword.getEditText().getText().toString().trim();
 
             if (username.isEmpty() || !username.contains("@") || !username.contains(".")) {
-                tilUsername.setError("Enter correct Email address");
+                tilEmail.setError("Enter correct Email address");
             } else if (password.isEmpty() || password.length() < 8) {
-                if (tilUsername.isErrorEnabled()) {
-                    tilUsername.setErrorEnabled(false);
+                if (tilEmail.isErrorEnabled()) {
+                    tilEmail.setErrorEnabled(false);
                 }
                 tilPassword.setError("Enter correct password");
             } else {
-                if (tilUsername.isErrorEnabled()) {
-                    tilUsername.setErrorEnabled(false);
+                if (tilEmail.isErrorEnabled()) {
+                    tilEmail.setErrorEnabled(false);
                 }
                 if (tilPassword.isErrorEnabled()) {
                     tilPassword.setErrorEnabled(false);
                 }
                 usersViewModel.loginUser(new Users(username, password)).observe(this, s -> {
-                    if (s.equals(password)) {
+                    //Log.d("LoginActivity", "onCreate: " + s.size());
+                    if (s != null && s.equals(username)) {
                         startActivity(new Intent(LoginActivity.this, MainActivity.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                     } else {
-                        Snackbar.make(findViewById(android.R.id.content), "Incorrect password", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(android.R.id.content), "Incorrect email or password", Snackbar.LENGTH_SHORT).show();
                     }
                 });
             }

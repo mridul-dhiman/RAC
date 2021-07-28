@@ -21,7 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         TextInputLayout tilName = findViewById(R.id.oTF_name);
-        TextInputLayout tilUsername = findViewById(R.id.oTF_username);
+        TextInputLayout tilEmail = findViewById(R.id.oTF_email);
         TextInputLayout tilPassword = findViewById(R.id.oTF_password);
 
         usersViewModel = new UsersViewModel(this);
@@ -30,35 +30,35 @@ public class RegisterActivity extends AppCompatActivity {
         findViewById(R.id.bu_sign_up).setOnClickListener(v -> {
 
             String name = tilName.getEditText().getText().toString().trim();
-            String username = tilUsername.getEditText().getText().toString().trim();
+            String email = tilEmail.getEditText().getText().toString().trim();
             String password = tilPassword.getEditText().getText().toString().trim();
 
             if (name.isEmpty()) {
-                tilUsername.setError("Enter correct Name");
-            } else if (username.isEmpty() || !username.contains("@") || !username.contains(".")) {
+                tilEmail.setError("Enter correct Name");
+            } else if (email.isEmpty() || !email.contains("@") || !email.contains(".")) {
                 if (tilName.isErrorEnabled()) {
                     tilName.setErrorEnabled(false);
                 }
-                tilUsername.setError("Enter correct Email address");
+                tilEmail.setError("Enter correct Email address");
             } else if (password.isEmpty() || password.length() < 8) {
                 if (tilName.isErrorEnabled()) {
                     tilName.setErrorEnabled(false);
                 }
-                if (tilUsername.isErrorEnabled()) {
-                    tilUsername.setErrorEnabled(false);
+                if (tilEmail.isErrorEnabled()) {
+                    tilEmail.setErrorEnabled(false);
                 }
                 tilPassword.setError("Enter correct password");
             } else {
                 if (tilName.isErrorEnabled()) {
                     tilName.setErrorEnabled(false);
                 }
-                if (tilUsername.isErrorEnabled()) {
-                    tilUsername.setErrorEnabled(false);
+                if (tilEmail.isErrorEnabled()) {
+                    tilEmail.setErrorEnabled(false);
                 }
                 if (tilPassword.isErrorEnabled()) {
                     tilPassword.setErrorEnabled(false);
                 }
-                usersViewModel.insertUser(new Users(name, username, password));
+                usersViewModel.insertUser(new Users(email, name, password));
                 Log.d(TAG, "onCreate: register");
             }
 

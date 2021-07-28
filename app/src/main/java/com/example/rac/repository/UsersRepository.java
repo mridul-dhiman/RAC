@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData;
 import com.example.rac.models.Users;
 import com.example.rac.presistence.MainDatabase;
 
+import java.util.List;
+
 public class UsersRepository {
     private static final String TAG = "UsersRepository";
 
@@ -30,7 +32,6 @@ public class UsersRepository {
         Users[] use = new Users[1];
         use[0] = users;
         new Thread(() -> {
-            Log.d(TAG, "insertUser: called");
             long[] l = mainDatabase.getDAO().insertUser(use);
             for (long lo : l) {
                 Log.d(TAG, "run: " + lo);
@@ -39,7 +40,7 @@ public class UsersRepository {
     }
 
     public LiveData<String> loginUser(Users users) {
-        return mainDatabase.getDAO().loginStatus(users.getUserName());
+        return mainDatabase.getDAO().loginStatus(users.getEmail(), users.getPassword());
     }
 
 }

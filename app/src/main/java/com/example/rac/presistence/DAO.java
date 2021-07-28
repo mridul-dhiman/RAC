@@ -8,12 +8,14 @@ import androidx.room.Query;
 
 import com.example.rac.models.Users;
 
+import java.util.List;
+
 @Dao
 public interface DAO {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long[] insertUser(Users... users);
 
-    @Query("SELECT password FROM Users WHERE userName = :userName")
-    LiveData<String> loginStatus(String userName);
+    @Query("SELECT Email FROM Users WHERE Email = :email AND Password = :password LIMIT 1")
+    LiveData<String> loginStatus(String email, String password);
 }

@@ -9,49 +9,38 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "Users")
 public class Users {
 
-    @PrimaryKey(autoGenerate = true)
-    private Integer id;
-
     @NonNull
+    @ColumnInfo(name = "Email")
+    @PrimaryKey
+    private final String email;
+
     @ColumnInfo(name = "Name")
     private String name;
-
-    @NonNull
-    @ColumnInfo(name = "UserName")
-    private final String userName;
 
     @NonNull
     @ColumnInfo(name = "Password")
     private final String password;
 
-    public Users(@NonNull String name, @NonNull String userName, @NonNull String password) {
+    public Users(@NonNull String email, @NonNull String name, @NonNull String password) {
+        this.email = email;
         this.name = name;
-        this.userName = userName;
         this.password = password;
     }
 
     @Ignore
-    public Users(@NonNull String userName, @NonNull String password) {
-        this.userName = userName;
+    public Users(@NonNull String email, @NonNull String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
+    @NonNull
+    public String getEmail() {
+        return email;
     }
 
     @NonNull
     public String getName() {
         return name;
-    }
-
-    @NonNull
-    public String getUserName() {
-        return userName;
     }
 
     @NonNull
