@@ -6,14 +6,16 @@ public class Cars {
     private final String carSeats;
     private final String carReleaseYear;
     private final String carFuelType;
-    private boolean available = false;
-    private boolean selected = false;
+    private boolean available;
+    private boolean selected;
 
     public Cars(String carName, String carSeats, String carReleaseYear, String carFuelType) {
         this.carName = carName;
         this.carSeats = carSeats;
         this.carReleaseYear = carReleaseYear;
         this.carFuelType = carFuelType;
+        this.available = true;
+        this.selected = false;
     }
 
     public String getCarName() {

@@ -17,8 +17,8 @@ import com.example.rac.R;
 import com.example.rac.adapter.RecyclerViewAdapter;
 import com.example.rac.adapter.RecyclerViewClickListener;
 import com.example.rac.models.Cars;
+import com.example.rac.models.TravelPlan;
 import com.example.rac.utils.CreateCarsList;
-import com.example.rac.utils.RandomNumberGenerator;
 import com.example.rac.viewModels.UsersViewModel;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputLayout;
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     private int selectedCarPosition = -1;
     private MaterialDatePicker<?> materialDatePicker;
 
+    private String email;
     private UsersViewModel usersViewModel;
 
     @Override
@@ -51,8 +52,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
 
         initViews();
 
-        //setUnavailableCars();
-
         createDatePicker();
 
         btnDatePicker.setOnClickListener(v ->
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
 
         btnConfirm.setOnClickListener(v -> {
             if (selectedDate != null && selectedDuration > 0 && selectedCarPosition != -1) {
-                //TODO: Save to DB
+                usersViewModel.saveTravelPlan(new TravelPlan(email, selectedDate, selectedDuration, selectedCarPosition));
                 startActivity(new Intent(MainActivity.this, FinalActivity.class));
             }
         });
@@ -117,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
 
     private void setUserName() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        String email = sharedPreferences.getString(SHARED_PREFS_USER_EMAIL, null);
+        email = sharedPreferences.getString(SHARED_PREFS_USER_EMAIL, null);
 
         usersViewModel.getUserName(email).observe(this, s -> {
             if (s != null && !s.isEmpty()) {
@@ -132,37 +131,27 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         builder.setTitleText("Select start date");
         materialDatePicker = builder.build();
         materialDatePicker.addOnPositiveButtonClickListener(selection -> {
-            Log.d(TAG, "onPositiveButtonClick: HeaderText " + materialDatePicker.getHeaderText());
             selectedDate = materialDatePicker.getHeaderText();
             btnDatePicker.setText(selectedDate);
             tilTravelDays.setVisibility(View.VISIBLE);
         });
     }
 
-    int unavailableCarsCount = 0;
-
-    private void setUnavailableCars() {
-        RandomNumberGenerator generator = RandomNumberGenerator.getInstance();
-        int index = generator.getRandomNumber();
-        boolean exists = !carsList.get(index).isAvailable();
-        if (exists) {
-            setUnavailableCars();
-        } else {
-            Cars updatedCar = carsList.get(index);
-            updatedCar.setAvailable(false);
-            carsList.set(index, updatedCar);
-            if (unavailableCarsCount < 2) {
-                setUnavailableCars();
-            }
-        }
-    }
-
 
     @Override
     public void OnItemClick(int position) {
         Log.d(TAG, "OnItemClick: position " + position);
-        selectedCarPosition = position;
-        adapter.notifyDataSetChanged();
-        btnConfirm.setVisibility(View.VISIBLE);
+        if (selectedCarPosition != -1 && selectedCarPosition != position) {
+            Cars car = carsList.get(selectedCarPosition);
+            car.setSelected(false);
+        }
+        if (carsList.get(position).isAvailable()) {
+            selectedCarPosition = position;
+            Cars car = carsList.get(position);
+            car.setSelected(true);
+            carsList.set(position, car);
+            adapter.notifyDataSetChanged();
+            btnConfirm.setVisibility(View.VISIBLE);
+        }
     }
 }

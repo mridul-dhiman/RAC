@@ -9,17 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RAC">
-        <activity android:name=".ui.FinalActivity"></activity>
-        <activity android:name=".ui.RegisterActivity" />
-        <activity android:name=".ui.LoginActivity"></activity>
-        <activity android:name=".ui.SplashActivity">
+        <activity android:name=".ui.FinalActivity" />
+        <activity
+            android:name=".ui.RegisterActivity"
+            android:theme="@style/Theme.RAC.NoActionBar" />
+        <activity
+            android:name=".ui.LoginActivity"
+            android:theme="@style/Theme.RAC.NoActionBar" />
+        <activity
+            android:name=".ui.SplashActivity"
+            android:theme="@style/Theme.RAC.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MainActivity"></activity>
+        <activity android:name=".ui.MainActivity" />
     </application>
 
 </manifest>

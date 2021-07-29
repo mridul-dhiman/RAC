@@ -6,7 +6,10 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.example.rac.models.TravelPlan;
 import com.example.rac.models.Users;
+
+import java.util.List;
 
 @Dao
 public interface DAO {
@@ -19,4 +22,10 @@ public interface DAO {
 
     @Query("SELECT Name FROM Users WHERE Email = :email LIMIT 1")
     LiveData<String> getUserName(String email);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    long[] insertTravelPlan(TravelPlan... travelPlans);
+
+    @Query("SELECT * FROM TravelPlan WHERE email = :email")
+    LiveData<List<TravelPlan>> getTravelPlans(String email);
 }

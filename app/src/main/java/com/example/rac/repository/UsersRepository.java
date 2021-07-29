@@ -5,8 +5,11 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.rac.models.TravelPlan;
 import com.example.rac.models.Users;
 import com.example.rac.presistence.MainDatabase;
+
+import java.util.List;
 
 public class UsersRepository {
     private static final String TAG = "UsersRepository";
@@ -32,7 +35,7 @@ public class UsersRepository {
         new Thread(() -> {
             long[] l = mainDatabase.getDAO().insertUser(use);
             for (long lo : l) {
-                Log.d(TAG, "run: " + lo);
+                Log.d(TAG, "run: User " + lo);
             }
         }).start();
     }
@@ -43,6 +46,21 @@ public class UsersRepository {
 
     public LiveData<String> getUserName(String email) {
         return mainDatabase.getDAO().getUserName(email);
+    }
+
+    public void saveTravelPlan(TravelPlan travelPlan) {
+        TravelPlan[] travelPlans = new TravelPlan[1];
+        travelPlans[0] = travelPlan;
+        new Thread(() -> {
+            long[] l = mainDatabase.getDAO().insertTravelPlan(travelPlans);
+            for (long lo : l) {
+                Log.d(TAG, "run: TP " + lo);
+            }
+        }).start();
+    }
+
+    public LiveData<List<TravelPlan>> getTravelPlans(String email) {
+        return mainDatabase.getDAO().getTravelPlans(email);
     }
 
 }

@@ -6,9 +6,10 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.rac.models.TravelPlan;
 import com.example.rac.models.Users;
 
-@Database(entities = {Users.class}, version = 1)
+@Database(entities = {Users.class, TravelPlan.class}, version = 1)
 public abstract class MainDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "RAC_DATABASE";

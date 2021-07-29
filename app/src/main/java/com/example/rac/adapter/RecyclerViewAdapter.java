@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rac.R;
@@ -63,6 +64,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             carSeats.setText(car.getCarSeats());
             carReleaseYear.setText(car.getCarReleaseYear());
             carFuelType.setText(car.getCarFuelType());
+
+            if (!car.isAvailable()) {
+                carName.setTextColor(itemView.getResources().getColor(R.color.notAvailable, itemView.getContext().getTheme()));
+                carSeats.setTextColor(itemView.getResources().getColor(R.color.notAvailable, itemView.getContext().getTheme()));
+                carReleaseYear.setTextColor(itemView.getResources().getColor(R.color.notAvailable, itemView.getContext().getTheme()));
+                carFuelType.setTextColor(itemView.getResources().getColor(R.color.notAvailable, itemView.getContext().getTheme()));
+            }
+
+            if (car.isSelected()) {
+                itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.car_selected));
+            } else {
+                itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.car_list));
+            }
         }
 
         @Override

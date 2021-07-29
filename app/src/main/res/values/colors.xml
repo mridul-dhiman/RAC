@@ -8,4 +8,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="notAvailable">#FFCCCCCC</color>
+    <color name="themeColor">#FFFECE2E</color>
+    <color name="themeColorDark">#E6B81F</color>
 </resources>

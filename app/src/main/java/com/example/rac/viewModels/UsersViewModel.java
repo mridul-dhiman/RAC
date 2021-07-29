@@ -5,8 +5,11 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.rac.models.TravelPlan;
 import com.example.rac.models.Users;
 import com.example.rac.repository.UsersRepository;
+
+import java.util.List;
 
 public class UsersViewModel extends ViewModel {
     private final UsersRepository repository;
@@ -25,5 +28,13 @@ public class UsersViewModel extends ViewModel {
 
     public LiveData<String> getUserName(String email) {
         return repository.getUserName(email);
+    }
+
+    public void saveTravelPlan(TravelPlan travelPlan) {
+        repository.saveTravelPlan(travelPlan);
+    }
+
+    public LiveData<List<TravelPlan>> getTravelPlans(String email) {
+        return repository.getTravelPlans(email);
     }
 }
