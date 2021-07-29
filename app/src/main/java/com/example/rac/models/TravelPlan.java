@@ -10,14 +10,12 @@ public class TravelPlan {
     @PrimaryKey
     @NonNull
     private final String email;
-    private final String startDate;
-    private final int travelDays;
+    private final String date;
     private final int carSelected;
 
-    public TravelPlan(@NonNull String email, String startDate, int travelDays, int carSelected) {
+    public TravelPlan(@NonNull String email, String date, int carSelected) {
         this.email = email;
-        this.startDate = startDate;
-        this.travelDays = travelDays;
+        this.date = date;
         this.carSelected = carSelected;
     }
 
@@ -25,12 +23,8 @@ public class TravelPlan {
         return email;
     }
 
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public int getTravelDays() {
-        return travelDays;
+    public String getDate() {
+        return date;
     }
 
     public int getCarSelected() {

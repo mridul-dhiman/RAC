@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.RAC" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.RAC" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/themeColor</item>
         <item name="colorPrimaryVariant">@color/themeColorDark</item>
@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowActivityTransitions">true</item>
+        <item name="fontFamily">@font/main_font_family</item>
 
     </style>
 

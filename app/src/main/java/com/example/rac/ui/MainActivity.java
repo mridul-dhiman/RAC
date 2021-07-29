@@ -3,46 +3,37 @@ package com.example.rac.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.core.util.Pair;
 
 import com.example.rac.R;
-import com.example.rac.adapter.RecyclerViewAdapter;
-import com.example.rac.adapter.RecyclerViewClickListener;
-import com.example.rac.models.Cars;
-import com.example.rac.models.TravelPlan;
-import com.example.rac.utils.CreateCarsList;
 import com.example.rac.viewModels.UsersViewModel;
+import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import static com.example.rac.utils.Constants.SHARED_PREFS;
 import static com.example.rac.utils.Constants.SHARED_PREFS_USER_EMAIL;
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewClickListener {
-    private static final String TAG = "MainActivity";
+public class MainActivity extends AppCompatActivity {
 
-    private List<Cars> carsList = new ArrayList<>();
     private TextView textViewUserWelcomeMessage;
     private Button btnDatePicker, btnConfirm;
-    private TextInputLayout tilTravelDays;
-    private RecyclerViewAdapter adapter;
     private String selectedDate;
-    private int selectedDuration;
-    private int selectedCarPosition = -1;
     private MaterialDatePicker<?> materialDatePicker;
+    private SharedPreferences sharedPreferences;
 
-    private String email;
     private UsersViewModel usersViewModel;
 
     @Override
@@ -58,9 +49,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
                 materialDatePicker.show(getSupportFragmentManager(), "DatePicker"));
 
         btnConfirm.setOnClickListener(v -> {
-            if (selectedDate != null && selectedDuration > 0 && selectedCarPosition != -1) {
-                usersViewModel.saveTravelPlan(new TravelPlan(email, selectedDate, selectedDuration, selectedCarPosition));
-                startActivity(new Intent(MainActivity.this, FinalActivity.class));
+            if (selectedDate != null) {
+                startActivity(new Intent(MainActivity.this, CarSelectorActivity.class).putExtra("DATE", selectedDate));
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), "Select dates first", Snackbar.LENGTH_SHORT).show();
             }
         });
 
@@ -70,53 +62,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         textViewUserWelcomeMessage = findViewById(R.id.tV_welcome_back_message);
         btnDatePicker = findViewById(R.id.bu_date_selector);
         btnConfirm = findViewById(R.id.bu_confirm);
-        tilTravelDays = findViewById(R.id.oTF_travel_duration);
-        RecyclerView rvCarsList = findViewById(R.id.rv_car_selector);
-
-        carsList = CreateCarsList.getInstance().getCarsList();
-        adapter = new RecyclerViewAdapter(carsList, this);
-
-        rvCarsList.setHasFixedSize(true);
-        rvCarsList.setAdapter(adapter);
 
         usersViewModel = new UsersViewModel(this);
-
-        tilTravelDays.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
-                    rvCarsList.setVisibility(View.VISIBLE);
-                    if (selectedCarPosition != -1) {
-                        btnConfirm.setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    rvCarsList.setVisibility(View.GONE);
-                    if (btnConfirm.getVisibility() == View.VISIBLE) {
-                        btnConfirm.setVisibility(View.GONE);
-                    }
-                }
-                selectedDuration = Integer.parseInt(s.toString());
-                Log.d(TAG, "onTextChanged: rvVisi " + carsList.size());
-                Log.d(TAG, "onTextChanged: rvVisi " + (rvCarsList.getVisibility() == View.VISIBLE));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         setUserName();
     }
 
     private void setUserName() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        email = sharedPreferences.getString(SHARED_PREFS_USER_EMAIL, null);
+        sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String email = sharedPreferences.getString(SHARED_PREFS_USER_EMAIL, null);
 
         usersViewModel.getUserName(email).observe(this, s -> {
             if (s != null && !s.isEmpty()) {
@@ -126,32 +80,44 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     }
 
     private void createDatePicker() {
-        MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
-        builder.setSelection(MaterialDatePicker.todayInUtcMilliseconds());
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth());
+        long start = calendar.getTimeInMillis();
+        calendar.set(Calendar.YEAR, LocalDate.MAX.getYear());
+        long end = calendar.getTimeInMillis();
+
+        CalendarConstraints.Builder ccBuilder = new CalendarConstraints.Builder();
+        ccBuilder.setStart(start);
+        ccBuilder.setEnd(end);
+
+        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        builder.setCalendarConstraints(ccBuilder.build());
         builder.setTitleText("Select start date");
         materialDatePicker = builder.build();
         materialDatePicker.addOnPositiveButtonClickListener(selection -> {
             selectedDate = materialDatePicker.getHeaderText();
             btnDatePicker.setText(selectedDate);
-            tilTravelDays.setVisibility(View.VISIBLE);
+            btnConfirm.setVisibility(View.VISIBLE);
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
-    public void OnItemClick(int position) {
-        Log.d(TAG, "OnItemClick: position " + position);
-        if (selectedCarPosition != -1 && selectedCarPosition != position) {
-            Cars car = carsList.get(selectedCarPosition);
-            car.setSelected(false);
-        }
-        if (carsList.get(position).isAvailable()) {
-            selectedCarPosition = position;
-            Cars car = carsList.get(position);
-            car.setSelected(true);
-            carsList.set(position, car);
-            adapter.notifyDataSetChanged();
-            btnConfirm.setVisibility(View.VISIBLE);
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_logout) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove(SHARED_PREFS_USER_EMAIL);
+            editor.apply();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 }

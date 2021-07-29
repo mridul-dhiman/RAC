@@ -29,15 +29,17 @@ public class UsersRepository {
         return instance;
     }
 
-    public void insertUser(Users users) {
+    public long insertUser(Users users) {
         Users[] use = new Users[1];
         use[0] = users;
+        final long[][] l = {new long[1]};
         new Thread(() -> {
-            long[] l = mainDatabase.getDAO().insertUser(use);
-            for (long lo : l) {
+            l[0] = mainDatabase.getDAO().insertUser(use);
+            for (long lo : l[0]) {
                 Log.d(TAG, "run: User " + lo);
             }
         }).start();
+        return l[0][0];
     }
 
     public LiveData<String> loginUser(Users users) {

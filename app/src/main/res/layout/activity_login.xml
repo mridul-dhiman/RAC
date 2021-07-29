@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ic_launcher_background"
     tools:context=".ui.LoginActivity">
 
     <ImageView
@@ -26,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/str_login_screen_message"
-        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/iV_app_logo"
         app:layout_constraintTop_toBottomOf="@+id/iV_app_logo" />
@@ -38,7 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/str_sign_in_message"
-        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/tV_login_message"
         app:layout_constraintTop_toBottomOf="@+id/tV_login_message" />
 
@@ -51,12 +48,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/str_username"
-        android:backgroundTint="@color/white"
-        android:textColorHint="@color/white"
-        app:boxBackgroundMode="outline"
-        app:boxStrokeColor="@color/white"
-        app:hintTextColor="@color/white"
-        app:placeholderTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tV_sign_in_message">
@@ -64,8 +55,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/white" />
+            android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,22 +67,15 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/white"
         android:hint="@string/str_password"
-        android:textColorHint="@color/white"
-        app:boxBackgroundMode="outline"
-        app:boxStrokeColor="@color/white"
-        app:hintTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/oTF_email"
-        app:placeholderTextColor="@color/white">
+        app:layout_constraintTop_toBottomOf="@+id/oTF_email">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textColor="@color/white" />
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

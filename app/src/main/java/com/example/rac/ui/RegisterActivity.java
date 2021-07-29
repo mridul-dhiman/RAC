@@ -1,5 +1,7 @@
 package com.example.rac.ui;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -9,6 +11,9 @@ import com.example.rac.R;
 import com.example.rac.models.Users;
 import com.example.rac.viewModels.UsersViewModel;
 import com.google.android.material.textfield.TextInputLayout;
+
+import static com.example.rac.utils.Constants.SHARED_PREFS;
+import static com.example.rac.utils.Constants.SHARED_PREFS_USER_EMAIL;
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
@@ -58,7 +63,17 @@ public class RegisterActivity extends AppCompatActivity {
                 if (tilPassword.isErrorEnabled()) {
                     tilPassword.setErrorEnabled(false);
                 }
-                usersViewModel.insertUser(new Users(email, name, password));
+                long result = usersViewModel.insertUser(new Users(email, name, password));
+                if (result != -1) {
+                    //Save user login
+                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(SHARED_PREFS_USER_EMAIL, email);
+                    editor.apply();
+
+                    startActivity(new Intent(RegisterActivity.this, MainActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                }
                 Log.d(TAG, "onCreate: register");
             }
 

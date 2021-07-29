@@ -5,31 +5,19 @@
     android:id="@+id/root_layout_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ic_launcher_background"
+    android:background="#6DDBDE"
     tools:context=".ui.SplashActivity">
 
-    <ImageView
+    <pl.droidsonroids.gif.GifImageView
         android:id="@+id/iV_app_logo"
-        android:layout_width="1dp"
-        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#6DDBDE"
         android:contentDescription="@string/str_applogo"
+        android:src="@drawable/cheche"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/app_logo" />
-
-    <ImageView
-        android:id="@+id/iV_app_logo_big"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:contentDescription="@string/str_applogo"
-        android:visibility="gone"
-        android:transitionName="appLogoTransition"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/app_logo" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

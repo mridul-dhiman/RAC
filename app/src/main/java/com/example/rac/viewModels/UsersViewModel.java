@@ -18,8 +18,8 @@ public class UsersViewModel extends ViewModel {
         repository = UsersRepository.getInstance(context);
     }
 
-    public void insertUser(Users users) {
-        repository.insertUser(users);
+    public long insertUser(Users users) {
+        return repository.insertUser(users);
     }
 
     public LiveData<String> loginUser(Users users) {
