@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">RAC</string>
     <string name="str_applogo">appLogo</string>
-    <string name="str_login_screen_message">Hello There,\nwelcome back</string>
+    <string name="str_login_screen_message">Hello There,\nwelcome</string>
     <string name="str_sign_up_screen_message">Welcome</string>
     <string name="str_sign_in_message">Sign In to continue</string>
     <string name="str_sign_up_message">Sign up to start</string>
@@ -12,13 +12,18 @@
     <string name="str_sign_up">Sign up</string>
     <string name="str_new_user_sign_up">New user? Sign up</string>
 
-    <string name="str_home_user_head">Welcome back %s</string>
+    <string name="str_home_user_head">Welcome %s\nWe are so glad you decided to try out RAC.</string>
+    <!--string name="str_home_user_message"></string-->
     <string name="str_select_your_travel_date">Select your travel dates</string>
     <string name="str_enter_duration_for_your_travel">Enter duration for your travel</string>
     <string name="str_confirm">Confirm</string>
-    <string name="str_final_message">Go at your nearest RAC store to collect your car and for security payment. Thanks a lot for choosing RAC, We hope to serve you again %s</string>
+    <string name="str_final_message">Your Booking Has Been confirmed, Kindly visit your nearest RAC store to complete the payment and collect your vehicle.</string>
+    <string name="str_thank_you_message">Thanks For Choosing Us!\nHAVE A SAFE JOURNEY</string>
     <string name="str_logout">Logout</string>
     <string name="str_enter_your_adhaar_number">Enter your Adhaar number</string>
     <string name="str_enter_your_licence">Enter your Driving licence</string>
     <string name="str_cd_qr_code">QR Code</string>
+    <string name="str_price">Price TBA</string>
+    <string name="str_unavailable">Unavailable</string>
+    <string name="str_car_image">Car Image</string>
 </resources>

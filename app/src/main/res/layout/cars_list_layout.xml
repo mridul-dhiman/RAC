@@ -10,13 +10,25 @@
         android:layout_height="wrap_content"
         android:padding="8dp">
 
+        <ImageView
+            android:id="@+id/iv_car_image"
+            android:layout_width="115dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/str_car_image"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
         <TextView
             android:id="@+id/tv_car_name"
             style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_car_image"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Mahindra eXUV300" />
 
@@ -46,10 +58,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_car_release_year"
             app:layout_constraintTop_toBottomOf="@+id/tv_car_release_year"
             tools:text="Petrol" />
+
+        <TextView
+            android:id="@+id/tv_car_price"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/str_price"
+            app:layout_constraintStart_toStartOf="@+id/tv_car_fuel_type"
+            app:layout_constraintTop_toBottomOf="@+id/tv_car_fuel_type" />
+
+        <TextView
+            android:id="@+id/tv_car_unavailable"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/str_unavailable"
+            android:textColor="#DB0F10"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tv_car_price"
+            app:layout_constraintTop_toBottomOf="@+id/tv_car_price"
+            tools:visibility="visible" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

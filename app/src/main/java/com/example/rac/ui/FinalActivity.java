@@ -1,5 +1,6 @@
 package com.example.rac.ui;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -36,12 +37,6 @@ public class FinalActivity extends AppCompatActivity {
 
         UsersViewModel usersViewModel = new UsersViewModel(this);
 
-        usersViewModel.getUserName(email).observe(this, s -> {
-            if (s != null && !s.isEmpty()) {
-                tvMessage.setText(String.format(getResources().getString(R.string.str_final_message), s));
-            }
-        });
-
         usersViewModel.getTravelPlans(email).observe(this, travelPlan -> {
             if (travelPlan != null) {
                 String date = travelPlan.getDate();
@@ -63,5 +58,10 @@ public class FinalActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(FinalActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }

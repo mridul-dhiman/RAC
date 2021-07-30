@@ -3,6 +3,7 @@ package com.example.rac.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,16 +44,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     protected static class CarsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView carName, carSeats, carReleaseYear, carFuelType;
+        private final ImageView carImage;
+        private final TextView carName, carSeats, carReleaseYear, carFuelType, carPrice, carAvailability;
         private final RecyclerViewClickListener viewClickListener;
 
         public CarsViewHolder(@NonNull View itemView, RecyclerViewClickListener clickListener) {
             super(itemView);
 
+            carImage = itemView.findViewById(R.id.iv_car_image);
             carName = itemView.findViewById(R.id.tv_car_name);
             carSeats = itemView.findViewById(R.id.tv_car_seats);
             carReleaseYear = itemView.findViewById(R.id.tv_car_release_year);
             carFuelType = itemView.findViewById(R.id.tv_car_fuel_type);
+            carPrice = itemView.findViewById(R.id.tv_car_price);
+            carAvailability = itemView.findViewById(R.id.tv_car_unavailable);
 
             viewClickListener = clickListener;
             itemView.setOnClickListener(this);
@@ -60,6 +65,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         public void onBind(Cars car) {
+            //Picasso.get().load(car.getCarImage()).centerCrop().into(carImage);
+            carImage.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), car.getCarImage()));
             carName.setText(car.getCarName());
             carSeats.setText(car.getCarSeats());
             carReleaseYear.setText(car.getCarReleaseYear());
@@ -70,6 +77,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 carSeats.setTextColor(itemView.getResources().getColor(R.color.notAvailable, itemView.getContext().getTheme()));
                 carReleaseYear.setTextColor(itemView.getResources().getColor(R.color.notAvailable, itemView.getContext().getTheme()));
                 carFuelType.setTextColor(itemView.getResources().getColor(R.color.notAvailable, itemView.getContext().getTheme()));
+                carPrice.setTextColor(itemView.getResources().getColor(R.color.notAvailable, itemView.getContext().getTheme()));
+                carAvailability.setVisibility(View.VISIBLE);
             }
 
             if (car.isSelected()) {

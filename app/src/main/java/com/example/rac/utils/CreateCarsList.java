@@ -2,6 +2,7 @@ package com.example.rac.utils;
 
 import android.util.Log;
 
+import com.example.rac.R;
 import com.example.rac.models.Cars;
 
 import java.util.ArrayList;
@@ -17,11 +18,11 @@ public class CreateCarsList {
     int unavailableCarsCount = 0;
 
     private CreateCarsList() {
-        carsList.add(new Cars("Hyundai elite i20", "4+1 seater", "2017-2018", "Petrol"));
-        carsList.add(new Cars("Renault Kwid", "4+1 seater", "2020", "Diesel"));
-        carsList.add(new Cars("Hyundai Creta", "4+1 seater", "2019", "Diesel"));
-        carsList.add(new Cars("Mahindra eXUV300", "6+1 seater", "2021", "Electric"));
-        carsList.add(new Cars("Skoda Rapid", "4+1 seater", "2017", "Petrol"));
+        carsList.add(new Cars(R.drawable.i20, "Hyundai elite i20", "4+1 seater", "2017-2018", "Petrol"));
+        carsList.add(new Cars(R.drawable.kwid, "Renault Kwid", "4+1 seater", "2020", "Diesel"));
+        carsList.add(new Cars(R.drawable.creta, "Hyundai Creta", "4+1 seater", "2019", "Diesel"));
+        carsList.add(new Cars(R.drawable.mahindra_xuv, "Mahindra eXUV300", "6+1 seater", "2021", "Electric"));
+        carsList.add(new Cars(R.drawable.skoda_rapid, "Skoda Rapid", "4+1 seater", "2017", "Petrol"));
 
         setUnavailableCars();
     }

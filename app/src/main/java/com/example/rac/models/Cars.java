@@ -2,6 +2,7 @@ package com.example.rac.models;
 
 public class Cars {
 
+    private final int carImage;
     private final String carName;
     private final String carSeats;
     private final String carReleaseYear;
@@ -9,13 +10,18 @@ public class Cars {
     private boolean available;
     private boolean selected;
 
-    public Cars(String carName, String carSeats, String carReleaseYear, String carFuelType) {
+    public Cars(int carImage, String carName, String carSeats, String carReleaseYear, String carFuelType) {
+        this.carImage = carImage;
         this.carName = carName;
         this.carSeats = carSeats;
         this.carReleaseYear = carReleaseYear;
         this.carFuelType = carFuelType;
         this.available = true;
         this.selected = false;
+    }
+
+    public int getCarImage() {
+        return carImage;
     }
 
     public String getCarName() {
