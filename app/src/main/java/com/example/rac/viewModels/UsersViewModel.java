@@ -9,8 +9,6 @@ import com.example.rac.models.TravelPlan;
 import com.example.rac.models.Users;
 import com.example.rac.repository.UsersRepository;
 
-import java.util.List;
-
 public class UsersViewModel extends ViewModel {
     private final UsersRepository repository;
 
@@ -34,7 +32,7 @@ public class UsersViewModel extends ViewModel {
         repository.saveTravelPlan(travelPlan);
     }
 
-    public LiveData<List<TravelPlan>> getTravelPlans(String email) {
+    public LiveData<TravelPlan> getTravelPlans(String email) {
         return repository.getTravelPlans(email);
     }
 }

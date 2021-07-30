@@ -34,6 +34,6 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         //Go to next activity
-        handler.postDelayed(() -> startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)), 8000);
+        handler.postDelayed(() -> startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)), 7000);
     }
 }

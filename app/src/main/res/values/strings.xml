@@ -18,4 +18,7 @@
     <string name="str_confirm">Confirm</string>
     <string name="str_final_message">Go at your nearest RAC store to collect your car and for security payment. Thanks a lot for choosing RAC, We hope to serve you again %s</string>
     <string name="str_logout">Logout</string>
+    <string name="str_enter_your_adhaar_number">Enter your Adhaar number</string>
+    <string name="str_enter_your_licence">Enter your Driving licence</string>
+    <string name="str_cd_qr_code">QR Code</string>
 </resources>

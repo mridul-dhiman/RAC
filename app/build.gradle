@@ -44,5 +44,7 @@ dependencies {
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.23'
 
+    implementation 'com.google.zxing:core:3.4.1'
+    implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
 
 }

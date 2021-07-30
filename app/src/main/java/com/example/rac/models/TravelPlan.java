@@ -12,11 +12,15 @@ public class TravelPlan {
     private final String email;
     private final String date;
     private final int carSelected;
+    private String adhaar;
+    private String license;
 
-    public TravelPlan(@NonNull String email, String date, int carSelected) {
+    public TravelPlan(@NonNull String email, String date, int carSelected, String adhaar, String license) {
         this.email = email;
         this.date = date;
         this.carSelected = carSelected;
+        this.adhaar = adhaar;
+        this.license = license;
     }
 
     public String getEmail() {
@@ -29,5 +33,13 @@ public class TravelPlan {
 
     public int getCarSelected() {
         return carSelected;
+    }
+
+    public String getAdhaar() {
+        return adhaar;
+    }
+
+    public String getLicense() {
+        return license;
     }
 }

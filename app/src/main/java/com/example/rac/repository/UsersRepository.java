@@ -9,8 +9,6 @@ import com.example.rac.models.TravelPlan;
 import com.example.rac.models.Users;
 import com.example.rac.presistence.MainDatabase;
 
-import java.util.List;
-
 public class UsersRepository {
     private static final String TAG = "UsersRepository";
 
@@ -61,7 +59,7 @@ public class UsersRepository {
         }).start();
     }
 
-    public LiveData<List<TravelPlan>> getTravelPlans(String email) {
+    public LiveData<TravelPlan> getTravelPlans(String email) {
         return mainDatabase.getDAO().getTravelPlans(email);
     }
 
